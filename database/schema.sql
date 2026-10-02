@@ -11,8 +11,11 @@ CREATE TABLE users (
   role TEXT NOT NULL CHECK (role IN ('producer', 'buyer')),
   name TEXT NOT NULL,
   phone TEXT,
+  location GEOGRAPHY(Point, 4326),
   created_at TIMESTAMP NOT NULL DEFAULT now()
 );
+
+CREATE INDEX users_location_gix ON users USING GIST (location);
 
 CREATE TABLE producers (
   id SERIAL PRIMARY KEY,
